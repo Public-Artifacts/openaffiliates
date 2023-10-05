@@ -1,4 +1,4 @@
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.21;
 
 // Interface for ERC-4626
 interface IERC4626 {
