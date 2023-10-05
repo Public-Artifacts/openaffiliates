@@ -34,6 +34,12 @@ contract OpenAffiliatesVault {
         registeredReferrers[msg.sender] = true;
     }
 
+    function unregisterAsReferrer() external {
+        require(registeredReferrers[msg.sender], "Referrer not registered");
+        registeredReferrers[msg.sender] = false;
+        IERC20(stakingToken).transfer(msg.sender, requiredStakeAmount);
+    }
+
     function deposit(uint256 amount) external {
         vault.deposit(msg.sender, amount);
     }
