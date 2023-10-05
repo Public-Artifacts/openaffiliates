@@ -10,21 +10,27 @@ interface IERC4626 {
 interface IERC20 {
     function transfer(address recipient, uint256 amount) external returns (bool);
     function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+    function approve(address spender, uint256 amount) external returns (bool);
 }
 
 contract OpenAffiliatesVault {
     IERC4626 public vault;
     address public rewardsToken;
+    address public stakingToken;
+    uint256 public requiredStakeAmount;
     mapping(address => bool) public registeredReferrers;
     mapping(address => uint256) public referrerRewards;
     uint256 public referralRewardsPool;
 
-    constructor(address _vault, address _rewardsToken) {
+    constructor(address _vault, address _rewardsToken, address _stakingToken, uint256 _requiredStakeAmount) {
         vault = IERC4626(_vault);
         rewardsToken = _rewardsToken;
+        stakingToken = _stakingToken;
+        requiredStakeAmount = _requiredStakeAmount;
     }
 
     function registerAsReferrer() external {
+        IERC20(stakingToken).transferFrom(msg.sender, address(this), requiredStakeAmount);
         registeredReferrers[msg.sender] = true;
     }
 
