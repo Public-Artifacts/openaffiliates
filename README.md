@@ -10,7 +10,7 @@ It contains:
 3. **Self-Registration for Referrers**: Open Affiliates provides a mechanism for any Ethereum address to stake a defined amount of a token to register as a referrer. This stake acts as a commitment and can be slashed by the contract owner if the referrer is found to misuse the system.
 4. **Rewards Distribution**: Registered referrers earn claimable rewards from the rewards pool when transactions specify their address in the `referrer` parameter.
 
-You can read more about the motivation and use cases [here](#link-placeholder).
+You can read more about the motivation and use cases [here](https://mirror.xyz/publicartifacts.eth/e36VlVOeVoEGLt5Nr2wWp3RqE7D_Wm_PorYF_Paur7w).
 
 ---
 
