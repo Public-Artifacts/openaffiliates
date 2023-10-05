@@ -39,7 +39,6 @@ contract OpenAffiliatesVault {
     }
 
     function depositWithReferrer(uint256 amount, address referrer) external {
-        require(registeredReferrers[referrer], "Referrer not registered");
         vault.deposit(msg.sender, amount);
         uint256 reward = calculateReward(amount);
         referralRewardsPool -= reward;
@@ -47,13 +46,17 @@ contract OpenAffiliatesVault {
     }
 
     function claimReward() external {
+        require(registeredReferrers[msg.sender], "Referrer not registered");
         uint256 amount = referrerRewards[msg.sender];
         require(amount > 0, "No rewards to claim");
         referrerRewards[msg.sender] = 0;
         IERC20(rewardsToken).transfer(msg.sender, amount);
     }
 
-    function calculateReward(uint256 amount) internal pure returns (uint256) {
+    function calculateReward(uint256 amount, address referrer) internal view returns (uint256) {
+        if (!registeredReferrers[referrer]) {
+            return 0;
+        }
         // Example: 1% reward
         return amount / 100;
     }
